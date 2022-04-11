@@ -809,3 +809,68 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 //	x.color = BLACK
 //
 
+/*------------------------------------------动态规划--------------------------------------------*/
+
+/* 15.1_钢条切割 
+   如何将长钢条切割成短钢条,使得总价值最高 */
+/*
+* 自然递归
+	法一: Rn = max(Pn, R1+Rn-1, R2+Rn-2, ..., Rn-1+R1)
+			Rn - 长度n英尺长钢切割的最大收益
+			Pn - 长度为n的钢条的收益
+	法二: Rn = max( Pi + Rn-i)	(1<=i<=n)
+			左边不切割(Pi),右边递归切割(Rn-i)
+*/
+// 自顶向下递归实现(法二)
+// CUT-ROD(p, n)
+//	if n == 0
+//		return 0
+//	q = -∞
+//	for i = 1 to n
+//		q = max(q,p[i]+CUT-ROD(p,n-i))
+//	return q
+/* CUT-ROD 的效率很差,原因在于,CUT-ROD 反复地用相同的参数值对自身进行递归调用
+   及反复求解相同的子问题 */
+
+/*
+*  动态规划
+	法一: 带备忘的自顶向下法
+			此方法仍按自然的递归形式编写程序,但过程会保存每个子问题的解
+			当需要一个子问题的解时,过程首先检查是否已经保存过此解
+	法二: 自底向上法
+			这种方法一般需要恰当定义子问题"规模"的概念
+			使得任何子问题都只依赖于"更小的"子问题的求解
+			因为我们可以将子问题按规模排序,按由小到大的顺序进行求解
+			当求解某个子问题时,它所依赖的那些更小的子问题都已经求解完毕,结果已保存
+			每个子问题只需求解一次,当我们求解它(第一次遇到它)时
+			它的所有前提子问题都已求解完毕
+*/
+// 自顶向下,加入备忘机制(法一)
+// MEMOIZED-CUT-ROD(p, n)
+//	let r[0..n] be a new array
+//	for i = 0 to n
+//		r[i] = -∞
+//	return MEMOIZED-CUT-ROD-AUX(p,n,r)
+
+// MEMOIZED-CUT-ROD-AUX(p, n, r)
+//	if r[n] >= 0
+//		return r[n]
+//	if n == 0
+//		q = 0
+//	else q = -∞
+//		for i = 1 to n
+//			q = max(q,p[i]+MEMOIZED-CUT-ROD-AUX(p,n-i,r))
+//	r[n] = q
+//	return q
+
+// 自底向上(法二)
+// BOTTOM-UP-CUT-ROD(p, n)
+//	let r[0..n] be a new array 
+//	r[0] = 0
+//	for j = 1 to n
+//		q = -∞
+//		for i = 1 to j
+//			q = max(q,p[i]+r[j-i])
+//		r[j] = q
+//	return r[n]
+//
