@@ -873,4 +873,25 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 //			q = max(q,p[i]+r[j-i])
 //		r[j] = q
 //	return r[n]
-//
+
+/* 重构解
+   不仅计算最大收益Ri,还保存最优解对应的第一段钢条的切割长度 */
+// EXTENDED-BOTTOM-UP-CUT-ROD(p, n)
+//	let r[0..n] and s[0..n] be new arrays
+//	r[0] = 0
+//	for j = 1 to n
+//		q = -∞
+//		if q < p[i]+r[j-i]
+//			q = p[i]+r[j-i]
+//			s[j] = i 
+//		r[j] = q
+//	return r and s
+
+// PRINT-CUT-ROD-SOLUTION(p, n)
+//	(r,s) = EXTENDED-BOTTOM-UP-CUT-ROD(p, n)
+//	while n > 0
+//		print s[n]
+//		n = n - s[n]
+/* 接受两个参数,价格表 p 和钢条长度 n
+   然后调用 EXTENDED-BOTTOM-UP-CUT-ROD 来计算切割下来的每段钢条长度 s[1..n]
+   最后输出长度为 n 的钢条的完整的最优切割方案 */
