@@ -811,7 +811,15 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 
 /*------------------------------------------动态规划--------------------------------------------*/
 
-/* 15.1_钢条切割 
+/*	设计一个动态规划算法的四个步骤:
+*		1. 刻划一个最优解的结构特征
+*		2. 递归地定义最优解的值
+*		3. 计算最优解的值,通常采用自底向上的方法
+*		4. 利用计算出的信息构造一个最优解
+*/
+
+
+/* 15.1_钢条切割 ················
    如何将长钢条切割成短钢条,使得总价值最高 */
 /*
 * 自然递归
@@ -895,3 +903,52 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 /* 接受两个参数,价格表 p 和钢条长度 n
    然后调用 EXTENDED-BOTTOM-UP-CUT-ROD 来计算切割下来的每段钢条长度 s[1..n]
    最后输出长度为 n 的钢条的完整的最优切割方案 */
+
+/* 15.2 矩阵链乘法 ···············
+   如何用最少的标量乘法操作完成一个矩阵链相乘的运算
+*/
+// 两矩阵相乘的标准算法
+// MATRIX-MULTIPLY(A,B)
+//	if A.columns != B.rows
+//		error"incompatible dimensions"
+//	else let C be a new A.row*B.columns matrix
+//		for i = 1 to A.rows
+//			for j = 1 to B.columns
+//				Cij = 0
+//				for k = 1 to A.columns
+//					Cij = Cij + Aik * Bkj
+//	return C 
+
+/* 自底向上表格法
+*	递推公式:
+*		m[i, j] = 0										如果 i = j
+*				  min{m[i, k] + m[k+1, j] + Pi-1PkPj}	如果 i < j
+
+	假定矩阵 Ai 的规模 Pi-1 × Pi (i = 1, 2, ..., n)
+	它的输入是一个序列 P = <P0, P1, ..., Pn>,其长度为 P.length = n + 1
+	此过程用一个辅助表 m[1..n, 1..n] 来保存代价 m[i, j]
+	用另一个辅助表 s[1..n-1, 2..n] 记录最优值 m[i, j] 对应的分割点 k
+*/
+// MATRIX-CHAIN-OEDER(p)
+//	n = p.length - 1
+//	let m[1..n, 1..n] and s[1..n-1, 2..n] be new tables
+//	for 1 = 1 to n
+//		m[i,i] = 0
+//	for l = 2 to n				// l is the chain length
+//		for i = 1
+//
+
+
+/* 15.3 动态规划原理 ···············
+   适合动态规划的两个关键特征
+*/
+
+
+/* 15.4  ···············
+   如何用动态规划方法找到两个序列的最长公共子序列
+*/
+
+
+/* 15.5  ···············
+   用动态规划方法解决在已知关键字分布的前提下,如何构造最有二叉搜索树
+*/
