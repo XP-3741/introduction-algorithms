@@ -824,7 +824,7 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 */
 
 
-/* 15.1_钢条切割 ················
+/* ················ 15.1_钢条切割 ················
    如何将长钢条切割成短钢条,使得总价值最高 */
 /*
 * 自然递归
@@ -909,7 +909,7 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
    然后调用 EXTENDED-BOTTOM-UP-CUT-ROD 来计算切割下来的每段钢条长度 s[1..n]
    最后输出长度为 n 的钢条的完整的最优切割方案 */
 
-/* 15.2 矩阵链乘法 ···············
+/* ················ 15.2 矩阵链乘法 ···············
    如何用最少的标量乘法操作完成一个矩阵链相乘的运算
 */
 // 两矩阵相乘的标准算法
@@ -963,7 +963,7 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 //		 print ")"
 
 
-/* 15.3 动态规划原理 ···············
+/* ················ 15.3 动态规划原理 ···············
    适合动态规划的两个关键特征
 	- 最优子结构
 	- 子问题重叠
@@ -1021,11 +1021,20 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 */
 
 
-/* 15.4  最长公共子序列···············
+/* ················ 15.4  最长公共子序列 ···············
    如何用动态规划方法找到两个序列的最长公共子序列
    给定两个序列 X=<X1, X2, ..., Xm> 和 Y=<Y1, Y2, ..., Yn>
    求 X 和 Y 长度最长的公共子序列
 */
+/*
+	定义 c[i,j] 表示 Xi 和 Yj 的 LCS 的长度
+	如果 i = 0 或 j = 0 , 即一个序列长度为 0,那么LCS的长度为 0
+	根据LCS问题的最优子结构性质,可得:
+					0						若 i = 0 或 j = 0
+		c[i,j] =	c[i-1, j-1] + 1			若 i,j > 0 且 Xi = Yj
+					max(c[i,j-1],c[i-1,j])	若 i,j > 0 且 Xi != Yj
+*/
+
 // LCS-LENGTH(X,Y)
 //	m = X.length
 //	n = Y.length
@@ -1044,9 +1053,28 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 //				b[i,j] = "↑"
 //			else c[i,j] = c[i,j-1]
 //				b[i,j] = "←"
-//
+/*
+	LCS-LENGTH 接受两个序列 X = <X1, X2, ..., Xm> 和 Y = <Y1, Y2, ..., Yn> 为输入
+	它将 c[i,j] 的值保存在表 c[0..m, 0..n] 中
+	过程还维护一个表 b[1..m, 1..n],帮助构造最优解
+	b[i,j] 指向的表项对应计算 c[i,j] 时所选择的子问题最优解
+*/
+
+// PRINT-LCS(b, X, i, j)		// i = X.length  j = Y.length
+//	if i == 0 or j == 0
+//		return
+//	if b[i,j] == "↖"
+//		PRINT-LCS(b, X, i-1, j-1)
+//		print Xi
+//	elseif b[i,j] == "↑"
+//		PRINT-LCS(b, X, i-1, j)
+//	else PRINT-LCS(b, X, i, j-1)
+/*
+	从 b[m,n] 开始,并按箭头方向追踪下去即可
+	当在表项 b[i,j] 中遇到一个"↖"时,意味着 Xi = Yj 是一个LCS元素
+*/
 
 
-/* 15.5  ···············
+/* ················ 15.5  ···············
    用动态规划方法解决在已知关键字分布的前提下,如何构造最有二叉搜索树
 */
