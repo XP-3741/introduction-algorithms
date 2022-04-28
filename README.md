@@ -1,2 +1,2 @@
 # introduction-algorithms
-Notes for Learning Introduction to Algorithms
+Notes for Learning 《Introduction to Algorithms》
