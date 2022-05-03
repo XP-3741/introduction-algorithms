@@ -1078,3 +1078,42 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 /* ················ 15.5 最有二叉搜索树 ···············
    用动态规划方法解决在已知关键字分布的前提下,如何构造最有二叉搜索树
 */
+
+
+/*------------------------------------------贪心算法--------------------------------------------*/
+
+/* ················ 16.1 活动选择问题 ···············
+	定理：考虑任何非空子问题 Sk, 令 am 是 Sk 中结束时间最早的活动
+			则 am 在 Sk 的某个最大兼容子集中
+*/
+
+// RECURSIVE-ACTIVITY-SELECTOR(s, f, k, n)			/* n */
+//	/*
+//		s, f 为两个数组,表示活动的开始和结束时间
+//		下标 k 指出要求解的子问题 Sk,以及问题规模 n
+//		它返回 Sk 的一个最大兼容活动集
+//		我们假定输入的 n 个活动已近按结束时间的单调递增顺序排序号
+//		为了方便算法初始化,我们添加一个虚拟活动 a0
+//		期结束时间 f0 = 0
+//		这样子问题 S0 就是完整的活动集 S
+//		求解原问题即可调用 RECURSIVE-ACTIVITY-SELECTOR(s, f, 0, n)
+//	*/
+//	m = k + 1
+//	while m <= n and s[m] < f[k]			// find the first activity in Sk to finish
+//		m = m + 1
+//	if m <= n
+//		return {am} U RECURSIVE-ACTIVITY-SELECTOR(s, f, m, n)
+//	else
+//		return NULL
+
+// 迭代贪心算法
+// GREEDY-ACTIVITY-SELECTOR(s, f)
+//	n = s.length
+//	A = {a1}
+//	k = 1
+//	for m = 2 to n
+//		if s[m] >= f[k]
+//			A = A U {am}
+//			k = m
+//	return A
+//
