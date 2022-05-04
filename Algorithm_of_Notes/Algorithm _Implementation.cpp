@@ -1116,4 +1116,18 @@ void RB_INSERT(RedBlackTree* T, RedBlackTreeNode* z)
 //			A = A U {am}
 //			k = m
 //	return A
+
+
+/* ，，，，，，，，，，，，，，，， 16.3 砕健凧園鷹 ，，，，，，，，，，，，，，，*/
+
+// HUFFMAN(C)
+//	n = |C|
+//	Q = C
+//	for i = 1 to n - 1
+//		allocate a new node z
+//		z.left = x = EXTRACT-MIN(Q)
+//		z.right = y = EXTRACT-MIN(Q)
+//		z.freq = x.freq + y.freq
+//		INSERT(Q, z)
+//	return EXTRACT-MIN(Q)			// return the root of the tree
 //
